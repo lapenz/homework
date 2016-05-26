@@ -12,7 +12,10 @@
 
 <p>
   <strong>Audio:</strong>
-  <%= @section.audio %>
+  <audio controls>
+    <source src="<%= @section.audio %>" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </p>
 
 <%= link_to 'Edit', edit_section_path(@section) %> |

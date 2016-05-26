@@ -2,7 +2,7 @@
 
 <h1>Listing Sections</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Lesson</th>
@@ -15,12 +15,19 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.lesson_id %></td>
+        <td><%= section.lesson.description_detailed %></td>
         <td><%= section.description %></td>
-        <td><%= section.audio %></td>
-        <td><%= link_to 'Show', section %></td>
-        <td><%= link_to 'Edit', edit_section_path(section) %></td>
-        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><audio controls>
+          <source src="<%= section.audio %>" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio></td>
+        <td>
+          <div class="btn-group" role="group">
+            <%= link_to 'Edit', edit_section_path(section), :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <%= link_to 'Show', section, :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <%= link_to 'Destroy', section, :class => 'btn btn-danger btn-sm', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +35,4 @@
 
 <br>
 
-<%= link_to 'New Section', new_section_path %>
+<%= link_to 'New Section', new_section_path, :class => 'btn btn-default' %>

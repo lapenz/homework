@@ -2,23 +2,27 @@
 
 <h1>Listing Lessons</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Book</th>
       <th>Description</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @lessons.each do |lesson| %>
       <tr>
-        <td><%= lesson.book_id %></td>
+        <td><%= lesson.book.description %></td>
         <td><%= lesson.description %></td>
-        <td><%= link_to 'Show', lesson %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <div class="btn-group" role="group">
+            <%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <%= link_to 'Show', lesson, :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <%= link_to 'Destroy', lesson, :class => 'btn btn-danger btn-sm', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Lesson', new_lesson_path %>
+<%= link_to 'New Lesson', new_lesson_path, :class => 'btn btn-default' %>
