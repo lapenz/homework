@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  resources :sections
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+  resources :sections do
+    resources :questions
+  end
   resources :lessons
   resources :books
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'books#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
