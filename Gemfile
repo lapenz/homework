@@ -29,6 +29,9 @@ gem 'autoprefixer-rails'
 # Upload de arquivos
 gem 'carrierwave'
 
+# HTML editor
+gem 'bootsy'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
