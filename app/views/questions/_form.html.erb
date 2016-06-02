@@ -13,8 +13,7 @@
 
   <div class="form-group">
     <%= f.label :section_id %><br>
-    <% sections_array = Section.all.map { |section| [section.description_detailed, section.id] } %>
-    <%= f.select(:section_id, options_for_select(sections_array, @section.id), {}, {:disabled => true, :class => 'form-control'}) %>
+    <%= f.select(:section_id, options_for_select([[@section.description_detailed, @section.id]]), {}, {:readOnly => true, :class => 'form-control'}) %>
   </div>
   <div class="form-group">
     <%= f.label :description %><br>
