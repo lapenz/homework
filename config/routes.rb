@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   resources :sections do
     resources :questions

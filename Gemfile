@@ -32,6 +32,12 @@ gem 'carrierwave'
 # HTML editor
 gem 'bootsy'
 
+# Autenticacao
+gem 'devise'
+
+# Permissoes
+gem 'cancan'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
