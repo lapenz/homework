@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_filter :get_section
+  load_and_authorize_resource
+  check_authorization
 
   def get_section
     @section = Section.find(params[:section_id])

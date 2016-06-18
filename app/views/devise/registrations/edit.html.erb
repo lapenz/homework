@@ -26,11 +26,12 @@
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
-
+    <% if current_user.role == 'admin' %>
     <div class="field">
       <%= f.label :role %><br />
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
     </div>
+    <% end %>
 
   <div class="actions">
     <%= f.submit "Update" %>
