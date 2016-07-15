@@ -10,11 +10,22 @@ Rails.application.routes.draw do
   end
   resources :lessons
   resources :books
+
+  get '/dashboard', to: 'dashboards#index'
+  get '/dashboard/:book_id/lessons', to: 'dashboards#lessons', as: 'book_lessons'
+  get '/dashboard/:lesson_id/sections', to: 'dashboards#sections', as: 'lesson_sections'
+  get '/dashboard/:section_id/answer_questions', to: 'dashboards#answer_questions', as: 'answer_questions'
+  post '/dashboard/verify_answer', to: 'dashboards#verify_answer', as: 'verify_answer'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'books#index'
+  # authenticated :user do
+  #   root 'dashboard#index', as: :authenticated_root
+  # end
+
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -3,11 +3,20 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
+
     super
   end
 
   # POST /resource/sign_in
   def create
+
+    idAluno = params[:user][:username].sub("aluno", "") if !sign_in_params.nil?
+    aluno = Aluno.find(idAluno)
+    email = aluno.email
+    email = params[:user][:username] + "@athus.com.br" if email.empty?
+    user = User.create(id: aluno.id, name: aluno.nome, email: email, username: params[:user][:username], password: aluno.codigo, password_confirmation: aluno.codigo, role: 'STUDENT') if !aluno.nil?
+
+    #byebug
     super
   end
 

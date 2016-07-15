@@ -29,19 +29,16 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
-    @user = user || User.new # for guest
-
-
-    can :read, Book
-
-
-    if @user.role == 'admin'
+    user ||= User.new # guest user (not logged in)
+    can :manage, :all
+    if user.admin?
       can :manage, :all
     end
 
-    if @user.role == 'student'
+    if user.student?
       can :read, :all
-      cannot :manage, User
+      cannot :update, User
     end
+
   end
 end

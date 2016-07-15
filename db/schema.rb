@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608021704) do
+ActiveRecord::Schema.define(version: 20160715000943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20160608021704) do
   create_table "questions", force: :cascade do |t|
     t.integer  "section_id"
     t.string   "description"
+    t.string   "number"
+    t.string   "sequence"
     t.text     "intro"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -65,9 +67,23 @@ ActiveRecord::Schema.define(version: 20160608021704) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "role"
+    t.string   "username"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_questions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "question_id"
+    t.string   "description"
+    t.boolean  "right"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "users_questions", ["question_id"], name: "index_users_questions_on_question_id", using: :btree
+  add_index "users_questions", ["user_id"], name: "index_users_questions_on_user_id", using: :btree
 
 end
