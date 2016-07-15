@@ -2,7 +2,6 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_filter :get_section
   load_and_authorize_resource
-  check_authorization
 
   def get_section
     @section = Section.find(params[:section_id])
@@ -77,6 +76,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:section_id, :description, :intro)
+      params.require(:question).permit(:section_id, :number, :sequence, :description, :intro)
     end
 end
