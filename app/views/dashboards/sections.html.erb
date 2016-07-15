@@ -1,0 +1,8 @@
+<h1>Listing Sections of <%= @lesson.description_detailed %></h1>
+
+<div class="list-group">
+  <% @sections.each do |section| %>
+    <%= link_to section.description, answer_questions_path(section), :class => "list-group-item" %>
+  <% end %>
+
+</div>

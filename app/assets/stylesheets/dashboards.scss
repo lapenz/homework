@@ -1,0 +1,46 @@
+// Place all the styles related to the questions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.answer-field {
+  border: 0px;
+  border-bottom: 1px solid #adadad;
+}
+
+.player {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+}
+
+.correctAnswerAnimation {
+  background-color: #dff0d8 !important;
+  animation: pulseCorrectAnswer 1s;
+}
+
+.wrongAnswerAnimation {
+  background-color: #f2dede !important;
+  animation: pulseWrongAnswer 1s;
+
+}
+
+@keyframes pulseCorrectAnswer {
+  0% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: #dff0d8;
+  }
+}
+
+@keyframes pulseWrongAnswer {
+  0% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: #f2dede;
+  }
+}
+
+
+

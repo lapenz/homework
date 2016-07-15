@@ -1,0 +1,10 @@
+<div class="page-header">
+    <h1>Listing Books</h1>
+</div>
+
+<div class="list-group">
+  <% @books.each do |book| %>
+    <%= link_to book.description, book_lessons_path(book), :class => "list-group-item" %>
+  <% end %>
+
+</div>

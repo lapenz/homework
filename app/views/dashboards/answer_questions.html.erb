@@ -1,0 +1,71 @@
+<h1>Listing Questions of <%= @section.description_detailed %></h1>
+
+<div class="player">
+  <audio controls>
+    <source src="<%= @section.audio %>" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+
+  <% @questions.group_by(&:number).sort.each do |number, questions| %>
+    <%= raw questions.first.intro %>
+    <h3><%= number %>:</h3>
+    <ul id="<%=number%>" class="list-group question">
+    <% questions.each do |question| %>
+        <% userQuestion = UsersQuestion.find_by(user_id: current_user.id, question_id: question.id) %>
+          <% if(!userQuestion.nil? && userQuestion.right?) %>
+              <% itemClass = 'list-group-item-success' %>
+          <% else %>
+              <% if(!userQuestion.nil? && !userQuestion.right?) %>
+                <% itemClass = 'list-group-item-danger' %>
+              <% end %>
+          <% end %>
+        <li class="list-group-item description <%= itemClass %>">
+          <%= form_tag('/dashboard/verify_answer', remote: true) do %>
+            <%= question.sequence + '.' if !question.sequence.empty? %>
+
+              <% if userQuestion.nil? %>
+                  <%= raw printQuestion question %>
+              <% else %>
+                  <% if userQuestion.right? %>
+                    <%= raw printRightQuestion question %>
+                  <% else %>
+                    <%= raw printWrongQuestion userQuestion %>
+                  <% end %>
+              <% end %>
+
+            <input type="submit" hidden="true" />
+          <% end %>
+        </li>
+    <% end %>
+    </ul>
+  <% end %>
+
+
+
+<script>
+
+
+//    $( "form" ).each(function( index ) {
+//        $(function () {
+//            $(this).on('submit', function (e) {
+//                $.ajax({
+//                    type: 'post',
+//                    url: '<%= Rails.application.routes.url_helpers.verify_answer_path %>',
+//                    data: $(this).serialize(),
+//                    success: function () {
+//                        console.log('deu certo');
+//                    }
+//                });
+//                e.preventDefault();
+//            });
+//        });
+
+        console.log( this + ": " + $(this).text() );
+//        console.log( index + ": " + $(".second_description").text() );
+//        $( ".description" ).append('<input type="text" name="question[second_description]" id="question_second_description">');
+//    });
+</script>
+
+
