@@ -7,12 +7,6 @@
   border-bottom: 1px solid #adadad;
 }
 
-.player {
-  position: fixed;
-  top: 80px;
-  width: 100%;
-}
-
 .correctAnswerAnimation {
   background-color: #dff0d8 !important;
   animation: pulseCorrectAnswer 1s;
@@ -40,6 +34,19 @@
   100% {
     background-color: #f2dede;
   }
+}
+
+.affix {
+  top: 60px;
+  width: 100%;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+
+}
+
+.affix-top {
+  position: static;
+  top: 0;
 }
 
 

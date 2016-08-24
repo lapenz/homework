@@ -1,10 +1,13 @@
-<h1>Listing Questions of <%= @section.description_detailed %></h1>
-
-<div class="player">
-  <audio controls>
-    <source src="<%= @section.audio %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<div class="page-header">
+     <h1>Listing Questions of <%= @section.description_detailed %></h1>
+</div>
+<div class="row" style="height: 35px">
+  <div class="col-md-12" data-spy="affix" data-offset-top="150">
+    <audio controls style="width: 100%;">
+      <source src="<%= @section.audio %>" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 </div>
 
 
@@ -15,10 +18,10 @@
     <% questions.each do |question| %>
         <% userQuestion = UsersQuestion.find_by(user_id: current_user.id, question_id: question.id) %>
           <% if(!userQuestion.nil? && userQuestion.right?) %>
-              <% itemClass = 'list-group-item-success' %>
+              <% itemClass = 'correctAnswerAnimation' %>
           <% else %>
               <% if(!userQuestion.nil? && !userQuestion.right?) %>
-                <% itemClass = 'list-group-item-danger' %>
+                <% itemClass = 'wrongAnswerAnimation' %>
               <% end %>
           <% end %>
         <li class="list-group-item description <%= itemClass %>">
@@ -41,31 +44,4 @@
     <% end %>
     </ul>
   <% end %>
-
-
-
-<script>
-
-
-//    $( "form" ).each(function( index ) {
-//        $(function () {
-//            $(this).on('submit', function (e) {
-//                $.ajax({
-//                    type: 'post',
-//                    url: '<%= Rails.application.routes.url_helpers.verify_answer_path %>',
-//                    data: $(this).serialize(),
-//                    success: function () {
-//                        console.log('deu certo');
-//                    }
-//                });
-//                e.preventDefault();
-//            });
-//        });
-
-        console.log( this + ": " + $(this).text() );
-//        console.log( index + ": " + $(".second_description").text() );
-//        $( ".description" ).append('<input type="text" name="question[second_description]" id="question_second_description">');
-//    });
-</script>
-
-
+<%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default' %>

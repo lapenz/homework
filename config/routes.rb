@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   get '/dashboard/:lesson_id/sections', to: 'dashboards#sections', as: 'lesson_sections'
   get '/dashboard/:section_id/answer_questions', to: 'dashboards#answer_questions', as: 'answer_questions'
   post '/dashboard/verify_answer', to: 'dashboards#verify_answer', as: 'verify_answer'
+  get '/dashboard/:section_id/close_section', to: 'dashboards#close_section', as: 'close_section'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

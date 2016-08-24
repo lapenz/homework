@@ -58,11 +58,11 @@ module QuestionsHelper
   end
 
   private
-  def replaceWithFilledFields(description, readOnly)
-    readOnly = readOnly ? 'readOnly' : ''
+  def replaceWithFilledFields(description, disabled)
+    disabled = disabled ? 'disabled' : ''
     originalAnswer = getOriginalAnswer(description)
     answerToFill = originalAnswer.gsub(/[{}%&"]/,'') # remove special characters
-    description.sub!(originalAnswer, "<input class=\"answer-field\" type=\"text\" value=\"#{answerToFill}\" #{readOnly} name=\"question[answers][]\" autocomplete=\"off\" style=\"width: #{((originalAnswer.length + 3) * 6.5)}px;\">")
+    description.sub!(originalAnswer, "<input class=\"answer-field\" type=\"text\" value=\"#{answerToFill}\" #{disabled} name=\"question[answers][]\" autocomplete=\"off\" style=\"width: #{((originalAnswer.length + 3) * 6.5)}px;\">")
   end
 
   def replaceWithFields(description)

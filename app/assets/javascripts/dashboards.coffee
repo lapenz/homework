@@ -9,13 +9,9 @@ $(document).ready ->
       if(xhr.responseText == "true")
         $(element).parent().removeClass("wrongAnswerAnimation")
         $(element).parent().addClass("correctAnswerAnimation")
-#        $(element).parent().addClass("list-group-item-success")
       else
         $(element).parent().removeClass("correctAnswerAnimation")
         $(element).parent().addClass("wrongAnswerAnimation")
-#        $(element).parent().addClass("list-group-item-danger")
     ).on "ajax:error", (e, xhr, status, error) ->
       alert('Houve um problema ao responder, tente novamente.')
   return
-
-

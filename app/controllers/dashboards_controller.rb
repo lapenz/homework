@@ -17,11 +17,29 @@ class DashboardsController < ApplicationController
 
   def answer_questions
     @section = Section.find(params[:section_id])
+    if SectionsHelper.closed_verify(current_user, @section)
+      redirect_to dashboard_path, alert: 'This section it is already done.'
+    end
     @questions = @section.questions
   end
 
+  def close_section
+    #byebug
+    @users_section = UsersSection.new(section_id: params[:section_id], user_id: current_user.id)
+    section = Section.find(params[:section_id])
+    respond_to do |format|
+      if @users_section.save
+        QuestionMailer.send_questions(section, current_user).deliver_now
+        format.html { redirect_to dashboard_path, notice: 'Questions was successfully delivered.' }
+        format.json { render :show, status: :created, location: @users_section }
+      else
+        format.html { render :new }
+        format.json { render json: @users_section.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def verify_answer
-#byebug
     question = Question.find(params[:question][:id])
 
     right = QuestionsHelper.verify_answer(question, params)

@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = @section.questions.find(params[:id])
+    @users_section = @section.questions.find(params[:id])
   end
 
   # GET /questions/new
@@ -71,7 +71,7 @@ class QuestionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
-      @question = Question.find(params[:id])
+      @users_section = Question.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

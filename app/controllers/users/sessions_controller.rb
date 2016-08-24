@@ -11,11 +11,12 @@ class Users::SessionsController < Devise::SessionsController
   def create
 
     idAluno = params[:user][:username].sub("aluno", "") if !sign_in_params.nil?
-    aluno = Aluno.find(idAluno)
-    email = aluno.email
-    email = params[:user][:username] + "@athus.com.br" if email.empty?
-    user = User.create(id: aluno.id, name: aluno.nome, email: email, username: params[:user][:username], password: aluno.codigo, password_confirmation: aluno.codigo, role: 'STUDENT') if !aluno.nil?
-
+    if idAluno.is_a? Integer
+      aluno = Aluno.find(idAluno)
+      email = aluno.email
+      email = params[:user][:username] + "@athus.com.br" if email.empty?
+      user = User.create(id: aluno.id, name: aluno.nome, email: email, username: params[:user][:username], password: aluno.codigo, password_confirmation: aluno.codigo, role: 'STUDENT') if !aluno.nil?
+    end
     #byebug
     super
   end

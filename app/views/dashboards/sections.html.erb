@@ -1,8 +1,21 @@
-<h1>Listing Sections of <%= @lesson.description_detailed %></h1>
+<div class="page-header">
+    <h1>Listing Sections of <%= @lesson.description_detailed %></h1>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/dashboard" >Home</a> </li>
+  <li><%= link_to @lesson.book.description, book_lessons_path(@lesson.book)%></li>
+  <li><%= link_to @lesson.description, lesson_sections_path(@lesson) %></li>
+  <li class="active">Sections</li>
+</ol>
 
 <div class="list-group">
   <% @sections.each do |section| %>
-    <%= link_to section.description, answer_questions_path(section), :class => "list-group-item" %>
+      <% if SectionsHelper.closed_verify(current_user, section) %>
+          <div class="list-group-item disabled"> <%=section.description %> </div>
+      <% else %>
+          <%= link_to section.description, answer_questions_path(section), :class => "list-group-item" %>
+
+      <% end %>
   <% end %>
 
 </div>
