@@ -9,9 +9,9 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-
+#byebug
     idAluno = params[:user][:username].sub("aluno", "") if !sign_in_params.nil?
-    if idAluno.is_a? Integer
+    if idAluno.to_i
       aluno = Aluno.find(idAluno)
       email = aluno.email
       email = params[:user][:username] + "@athus.com.br" if email.empty?
