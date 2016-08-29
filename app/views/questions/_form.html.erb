@@ -23,15 +23,15 @@
       <%= f.label :sequence %><br>
       <%= f.text_field :sequence, :class => 'form-control' %>
     </div>
-  <div class="form-group">
+    <div class="form-group">
+      <%= f.label :intro %><br>
+      <%= f.bootsy_area :intro, :class => 'form-control', :rows => 15 %>
+    </div>
+    <div class="form-group">
     <%= f.label :description %><br>
     <%= f.text_field :description, :class => 'form-control' %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :intro %><br>
-    <%= f.bootsy_area :intro, :class => 'form-control', :rows => 15 %>
-  </div>
   <div class="actions">
     <%= f.submit :class => 'btn btn-default' %>
   </div>
