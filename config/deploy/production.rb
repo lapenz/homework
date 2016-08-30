@@ -62,7 +62,7 @@
 set :stage, :production
 
 # Replace 127.0.0.1 with your server's IP address!
-server '192.168.0.10',
+server '177.220.150.230',
        user: 'deploy',
        roles: %w{web app},
        ssh_options: {
