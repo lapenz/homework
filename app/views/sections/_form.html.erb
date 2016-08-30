@@ -22,6 +22,7 @@
   <div class="form-group">
     <%= f.label :audio %><br>
     <audio controls>
+      <source src="<%= @section.audio %>" type="audio/ogg">
       <source src="<%= @section.audio %>" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
