@@ -14,13 +14,13 @@
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @question.description %>
+  <strong>Intro:</strong>
+  <%= raw @question.intro %>
 </p>
 
 <p>
-  <strong>Intro:</strong>
-  <%= raw @question.intro %>
+  <strong>Description:</strong>
+  <%= @question.description %>
 </p>
 
 <%= link_to 'Edit', edit_section_question_path(@section, @question) %> |

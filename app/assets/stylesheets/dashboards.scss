@@ -38,9 +38,9 @@
 
 .affix {
   top: 60px;
-  width: 100%;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
+  z-index: 999;
 
 }
 
