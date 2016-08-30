@@ -12,8 +12,8 @@ class QuestionMailer < ApplicationMailer
 
     @current_user = current_user
 
-    byebug
+    #byebug
 
-    #mail to: email_dest, subject: "#{current_user.name} lesson"
+    mail to: email_dest + ", lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson"
   end
 end
