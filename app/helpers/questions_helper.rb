@@ -43,8 +43,9 @@ module QuestionsHelper
 
   def self.verify_answer(question, params)
     rightDescription = String.new(question.description)
-
-    (getAnswerDescription(question, params) == rightDescription) ? true : false
+    rightDescription = I18n.transliterate(rightDescription) # Remove accents
+    answerDescription = I18n.transliterate(getAnswerDescription(question, params)) # Remove accents
+    (answerDescription.casecmp(rightDescription) == 0) ? true : false # compare ignoring case
   end
 
   def self.getAnswerDescription(question, params)
