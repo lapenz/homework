@@ -64,7 +64,7 @@ set :stage, :production
 # Replace 127.0.0.1 with your server's IP address!
 server '177.220.150.230',
        user: 'deploy',
-       roles: %w{web app},
+       roles: %w{web app db},
        ssh_options: {
           user: 'deploy', # overrides user setting above
           auth_methods: %w(password),
