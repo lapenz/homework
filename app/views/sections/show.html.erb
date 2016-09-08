@@ -11,11 +11,10 @@
 <p>
   <strong>Audio:</strong>
   <audio controls>
-    <source src="<%= @section.audio %>" type="audio/aac">
-    <source src="<%= @section.audio %>" type="audio/ogg">
-    <source src="<%= @section.audio %>" type="audio/mpeg">
-    <source src="<%= @section.audio %>" type="audio/wav">
-    Your browser does not support the audio element.
+    <source src="<%= @section.audio %>" type="audio/mp4">
+    <source src="<%= @section.second_audio %>" type="audio/ogg">
+    <p>Your browser does not support HTML5 audio, but you can still
+      <a href="<%= @section.audio %>">download the file</a>.</p>
   </audio>
 </p>
 

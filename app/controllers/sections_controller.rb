@@ -70,6 +70,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:lesson_id, :description, :audio)
+      params.require(:section).permit(:lesson_id, :description, :audio, :second_audio)
     end
 end
