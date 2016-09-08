@@ -15,7 +15,11 @@
 
 
   <% @questions.group_by(&:number).sort.each do |number, questions| %>
-    <%= raw questions.first.intro %>
+    <div class="row">
+      <div class="col-md-12" >
+        <%= raw questions.first.intro %>
+        </div>
+    </div>
     <h3><%= number %>:</h3>
     <ul id="<%=number%>" class="list-group question">
     <% questions.each do |question| %>
@@ -47,4 +51,4 @@
     <% end %>
     </ul>
   <% end %>
-<%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default' %>
+<%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default', data: { confirm: 'Are you sure about this?' } %>

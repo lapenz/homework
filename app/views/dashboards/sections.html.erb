@@ -11,7 +11,7 @@
 <div class="list-group">
   <% @sections.each do |section| %>
       <% if SectionsHelper.closed_verify(current_user, section) %>
-          <div class="list-group-item disabled"> <%=section.description %> </div>
+          <%= link_to section.description, result_questions_path(section), :class => "list-group-item list-group-item-success" %>
       <% else %>
           <%= link_to section.description, answer_questions_path(section), :class => "list-group-item" %>
 

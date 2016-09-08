@@ -30,9 +30,9 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       if @users_section.save
         # busca o email do professor
-        dados = ProfessorEmails.joins('inner join professor on professor.id = professor_emails.professor_id').joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id})
-        QuestionMailer.send_questions(section, current_user, dados[0].emails).deliver_now
-        format.html { redirect_to dashboard_path, notice: 'Questions was successfully delivered.' }
+        #dados = ProfessorEmails.joins('inner join professor on professor.id = professor_emails.professor_id').joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id})
+        QuestionMailer.send_questions(section, current_user, "").deliver_now
+        format.html { redirect_to result_path(@users_section.section_id), notice: 'Questions was successfully delivered.' }
         format.json { render :show, status: :created, location: @users_section }
       else
         format.html { render :new }
@@ -56,6 +56,22 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       format.json { render :json => right.to_json }
     end
+  end
+
+  def result_questions
+    @section = Section.find(params[:section_id])
+    @total = UsersQuestion.joins(:question).where(:user_id => current_user.id, :questions => { :section_id => params[:section_id] }).count
+    @rights = UsersQuestion.joins(:question).where(:user_id => current_user.id, :right => true, :questions => { :section_id => params[:section_id] }).count
+    @wrongs = Question.joins(:users_questions).where(:section_id => params[:section_id], :users_questions => { :user_id => current_user.id, :right => false })
+  end
+
+  def result
+    total = UsersQuestion.joins(:question).where(:user_id => current_user.id, :questions => { :section_id => params[:section_id] }).count
+    rights = UsersQuestion.joins(:question).where(:user_id => current_user.id, :right => true, :questions => { :section_id => params[:section_id] }).count
+    wrongs = UsersQuestion.joins(:question).where(:user_id => current_user.id, :right => false, :questions => { :section_id => params[:section_id] }).count
+
+    @rightPercent = rights.to_f / total.to_f * 100.0
+    @wrongPercent = wrongs.to_f / total.to_f * 100.0
   end
 
   private

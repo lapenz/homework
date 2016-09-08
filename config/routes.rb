@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get '/dashboard/:section_id/answer_questions', to: 'dashboards#answer_questions', as: 'answer_questions'
   post '/dashboard/verify_answer', to: 'dashboards#verify_answer', as: 'verify_answer'
   get '/dashboard/:section_id/close_section', to: 'dashboards#close_section', as: 'close_section'
+  get '/dashboard/:section_id/result', to: 'dashboards#result', as: 'result'
+  get '/dashboard/:section_id/result_questions', to: 'dashboards#result_questions', as: 'result_questions'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
