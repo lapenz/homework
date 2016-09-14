@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><%=current_user.name%> score:</h1>
+  <h1><%=current_user.name%> score:</h1>
 </div>
 <ol class="breadcrumb">
   <li><a href="/dashboard" >Home</a> </li>
@@ -9,29 +9,31 @@
 </ol>
 
 <h3>
-<b><%= @rights %></b> right of <%=@total%> questions!
+  <b><%= @rights %></b> right of <%=@total%> questions!
 </h3>
 
 <h2>Wrong questions:</h2>
-<% @wrongs.group_by(&:number).sort.each do |number, questions| %>
-    <%= raw questions.first.intro %>
-    <h3><%= number %>:</h3>
-    <ul class="list-group" id="<%=number%>" >
-      <% questions.each do |question| %>
-          <% userQuestion = UsersQuestion.find_by(user_id: @current_user.id, question_id: question.id) %>
+<% @wrongs.group_by(&:group).sort.each do |number, groups| %>
+    <% groups.group_by(&:number).sort.each do |number, questions| %>
+        <%= raw questions.first.intro %>
+        <h3><%= number %>:</h3>
+        <ul class="list-group" id="<%=number%>" >
+          <% questions.each do |question| %>
+              <% userQuestion = UsersQuestion.find_by(user_id: @current_user.id, question_id: question.id) %>
 
-          <li class="list-group-item list-group-item-danger">
+              <li class="list-group-item list-group-item-danger">
                 <%= question.sequence + '.' if !question.sequence.empty? %>
 
                 <%= userQuestion.description %>
 
-          </li>
-          <li class="list-group-item list-group-item-success">
-            Right answer: <%= question.description %>
+              </li>
+              <li class="list-group-item list-group-item-success">
+                Right answer: <%= question.description %>
 
-          </li>
-      <% end %>
-    </ul>
+              </li>
+          <% end %>
+        </ul>
+    <% end %>
 <% end %>
 
 <a onclick="window.print()" href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</a>

@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = @section.questions
+    @questions = @section.questions.order(:group, :number, :sequence)
   end
 
   # GET /questions/1
@@ -76,6 +76,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:section_id, :number, :sequence, :description, :intro)
+      params.require(:question).permit(:section_id, :group, :number, :sequence, :description, :intro)
     end
 end

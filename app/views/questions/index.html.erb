@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Section</th>
+      <th>Group</th>
       <th>Number</th>
       <th>Sequence</th>
       <th>Description</th>
@@ -17,6 +18,7 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.section.description_detailed %></td>
+        <td><%= question.group %></td>
         <td><%= question.number %></td>
         <td><%= question.sequence %></td>
         <td><%= question.description %></td>

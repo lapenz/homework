@@ -1,5 +1,5 @@
 <div class="page-header">
-     <h1>Listing Questions of <%= @section.description_detailed %></h1>
+  <h1>Listing Questions of <%= @section.description_detailed %></h1>
 </div>
 <div class="row" style="height: 35px">
   <div class="col-md-12" data-spy="affix" data-offset-top="150">
@@ -13,41 +13,44 @@
 </div>
 
 
-  <% @questions.group_by(&:number).sort.each do |number, questions| %>
-    <div class="row">
-      <div class="col-md-12" >
-        <%= raw questions.first.intro %>
+<% @questions.group_by(&:group).sort.each do |number, groups| %>
+    <% groups.group_by(&:number).sort.each do |number, questions| %>
+        <div class="row">
+          <div class="col-md-12" >
+            <%= raw questions.first.intro %>
+          </div>
         </div>
-    </div>
-    <h3><%= number %>:</h3>
-    <ul id="<%=number%>" class="list-group question">
-    <% questions.each do |question| %>
-        <% userQuestion = UsersQuestion.find_by(user_id: current_user.id, question_id: question.id) %>
-          <% if(!userQuestion.nil? && userQuestion.right?) %>
-              <% itemClass = 'correctAnswerAnimation' %>
-          <% else %>
-              <% if(!userQuestion.nil? && !userQuestion.right?) %>
-                <% itemClass = 'wrongAnswerAnimation' %>
-              <% end %>
-          <% end %>
-        <li class="list-group-item description <%= itemClass %>">
-          <%= form_tag('/dashboard/verify_answer', remote: true) do %>
-            <%= question.sequence + '.' if !question.sequence.empty? %>
-
-              <% if userQuestion.nil? %>
-                  <%= raw printQuestion question %>
+        <h3><%= number %>:</h3>
+        <ul id="<%=number%>" class="list-group question">
+          <% questions.each do |question| %>
+              <% userQuestion = UsersQuestion.find_by(user_id: current_user.id, question_id: question.id) %>
+              <% if(!userQuestion.nil? && userQuestion.right?) %>
+                  <% itemClass = 'correctAnswerAnimation' %>
               <% else %>
-                  <% if userQuestion.right? %>
-                    <%= raw printRightQuestion question %>
-                  <% else %>
-                    <%= raw printWrongQuestion userQuestion %>
+                  <% if(!userQuestion.nil? && !userQuestion.right?) %>
+                      <% itemClass = 'wrongAnswerAnimation' %>
                   <% end %>
               <% end %>
+              <li class="list-group-item description <%= itemClass %>">
+                <%= form_tag('/dashboard/verify_answer', remote: true) do %>
+                    <%= question.sequence + '.' if !question.sequence.empty? %>
 
-            <input type="submit" value="Send" class="btn btn-success btn-sm"/>
+                    <% if userQuestion.nil? %>
+                        <%= raw printQuestion question %>
+                    <% else %>
+                        <% if userQuestion.right? %>
+                            <%= raw printRightQuestion question %>
+                        <% else %>
+                            <%= raw printWrongQuestion userQuestion %>
+                        <% end %>
+                    <% end %>
+
+                    <input type="submit" value="Send" class="btn btn-success btn-sm"/>
+                <% end %>
+              </li>
           <% end %>
-        </li>
+        </ul>
     <% end %>
-    </ul>
-  <% end %>
+<% end %>
 <%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default', data: { confirm: 'Are you sure about this?' } %>
+<br>
