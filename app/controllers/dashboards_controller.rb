@@ -7,7 +7,7 @@ class DashboardsController < ApplicationController
 
   def lessons
     @book = Book.find(params[:book_id])
-    @lessons = Lesson.where(:book_id => params[:book_id])
+    @lessons = Lesson.where(:book_id => params[:book_id]).order(:description)
   end
 
   def sections
@@ -20,7 +20,7 @@ class DashboardsController < ApplicationController
     if SectionsHelper.closed_verify(current_user, @section)
       redirect_to dashboard_path, alert: 'This section it is already done.'
     end
-    @questions = @section.questions
+    @questions = @section.questions.order(:group, :number, :sequence)
   end
 
   def close_section
