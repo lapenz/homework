@@ -3,7 +3,7 @@ class CreateQuestions < ActiveRecord::Migration
     create_table :questions do |t|
       t.integer :section_id
       t.string :description
-      t.string :number
+      t.integer :number
       t.string :sequence
       t.text :intro
 
