@@ -8,6 +8,7 @@ module QuestionsHelper
         replaceWithFields(description)
       end
       description += "<input value=\"#{question.id}\" type=\"hidden\" name=\"question[id]\">"
+      description += printSendButton(count)
       description
     end
   end
@@ -33,6 +34,7 @@ module QuestionsHelper
         replaceWithFilledFields(description, false)
       end
       description += "<input autocapitalize=\"none\" value=\"#{userQuestion.question_id}\" type=\"hidden\" name=\"question[id]\">"
+      description += printSendButton(count)
       description
     end
   end
@@ -85,6 +87,14 @@ module QuestionsHelper
     i = description.index("{")
     j = description.index("}")
     description[i..j]
+  end
+
+  def printSendButton(answerQty)
+    if answerQty > 0
+      " <input type=\"submit\" value=\"Send\" class=\"btn btn-success btn-sm\"/>"
+    else
+      ""
+    end
   end
 
 end
