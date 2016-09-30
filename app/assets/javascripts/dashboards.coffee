@@ -15,3 +15,12 @@ $(document).ready ->
     ).on "ajax:error", (e, xhr, status, error) ->
       alert('Houve um problema ao responder, tente novamente.')
   return
+
+$(document).keydown (event) ->
+  if event.ctrlKey
+    player = document.getElementById("player");
+    if (player.paused == false)
+      player.pause();
+    else
+      player.play();
+return
