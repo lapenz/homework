@@ -62,11 +62,11 @@
 set :stage, :production
 
 # Replace 127.0.0.1 with your server's IP address!
-server '177.220.150.229',
-       user: 'root',
+server '191.252.92.141',
+       user: 'deployer',
        roles: %w{web app db},
        ssh_options: {
-          user: 'root', # overrides user setting above
+          user: 'deployer', # overrides user setting above
           auth_methods: %w(password),
-          password: 'gtsnfe2010'
+          password: 'q27pptz8'
         }
