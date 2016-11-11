@@ -23,6 +23,6 @@ module Homework
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.action_mailer.asset_host = 'http://gtech.site:8083'
+    config.action_mailer.asset_host = 'http://homework.athus.com'
   end
 end
