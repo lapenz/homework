@@ -30,8 +30,8 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       if @users_section.save
         # busca o email do professor
-        dados = Professor.joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id, status: 2})
-        QuestionMailer.send_questions(section, current_user, dados[0].email).deliver_now
+        dados = Professor.joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id, status: [1,2]})
+        QuestionMailer.send_questions(section, current_user, dados[0].email).deliver_now unless dados.nil?
         format.html { redirect_to result_path(@users_section.section_id), notice: 'Questions was successfully delivered.' }
         format.json { render :show, status: :created, location: @users_section }
       else
