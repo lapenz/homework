@@ -53,9 +53,7 @@ module QuestionsHelper
   def self.getAnswerDescription(question, params)
     description = String.new(question.description)
 
-    params[:question][:answers].each { |answer|
-      replaceWithAnswer(answer, description)
-    }
+    replaceWithAnswer(params, description)
 
     description
   end
@@ -63,30 +61,54 @@ module QuestionsHelper
   private
   def replaceWithFilledFields(description, disabled)
     disabled = disabled ? 'disabled' : ''
-    originalAnswer = getOriginalAnswer(description)
+    originalAnswer = getFirstOccurrenceAnswer(description)
     answerToFill = originalAnswer.gsub(/[{}%&"]/,'') # remove special characters
     description.sub!(originalAnswer, "<input autocapitalize=\"none\" class=\"answer-field\" type=\"text\" value=\"#{answerToFill}\" #{disabled} name=\"question[answers][]\" autocomplete=\"off\" style=\"width: #{((originalAnswer.length + 3) * 6.5)}px;\">")
   end
 
   def replaceWithFields(description)
-    originalAnswer = getOriginalAnswer(description)
+    originalAnswer = getFirstOccurrenceAnswer(description)
     answerSize = originalAnswer.length - 2 # para remover os {} da contagem
     description.sub!(originalAnswer, "<input autocapitalize=\"none\" class=\"answer-field\" type=\"text\" name=\"question[answers][]\" autocomplete=\"off\" maxlength=\"#{answerSize}\" style=\"width: #{((answerSize + 3) * 6.5)}px;\">")
   end
 
-  def self.replaceWithAnswer(answer, description)
-    rightAnswer = getOriginalAnswer(description)
-    description.sub!(rightAnswer, "{" + answer + "}")
+  def self.replaceWithAnswer(params, description)
+    i = -1
+    j = -1
+
+    params[:question][:answers].each { |answer|
+      i = getOpenKeyPosition(description, i+1)
+      j = getCloseKeyPosition(description, j+1)
+
+      description.sub!(description[i..j], "{" + answer + "}")
+    }
+
   end
 
-  def getOriginalAnswer(description)
-    QuestionsHelper.getOriginalAnswer(description)
+  def getFirstOccurrenceAnswer(description)
+    QuestionsHelper.getFirstOccurrenceAnswer(description)
   end
-  
-  def self.getOriginalAnswer(description)
-    i = description.index("{")
-    j = description.index("}")
+
+  def self.getFirstOccurrenceAnswer(description)
+    i = getOpenKeyPosition(description)
+    j = getCloseKeyPosition(description)
     description[i..j]
+  end
+
+  def getOpenKeyPosition(description, offset = 0)
+    QuestionsHelper.getOpenKeyPosition(description, offset)
+  end
+
+  def self.getOpenKeyPosition(description, offset = 0)
+    description.index("{", offset)
+  end
+
+  def getCloseKeyPosition(description, offset = 0)
+    QuestionsHelper.getCloseKeyPosition(description, offset)
+  end
+
+  def self.getCloseKeyPosition(description, offset = 0)
+    description.index("}", offset)
   end
 
   def printSendButton(answerQty)
