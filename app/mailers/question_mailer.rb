@@ -7,6 +7,7 @@ class QuestionMailer < ApplicationMailer
   #
   def send_questions(section, current_user, email_dest)
 
+    @section = section
     @total = UsersQuestion.joins(:question).where(:user_id => current_user.id, :questions => { :section_id => section.id }).count
     @rights = UsersQuestion.joins(:question).where(:user_id => current_user.id, :right => true, :questions => { :section_id => section.id }).count
     @wrongs = Question.joins(:users_questions).where(:section_id => section.id, :users_questions => { :user_id => current_user.id, :right => false })

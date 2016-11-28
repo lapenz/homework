@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160914203208) do
     t.integer  "section_id"
     t.string   "description"
     t.integer  "number"
-    t.string   "sequence"
+    t.integer   "sequence"
     t.text     "intro"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

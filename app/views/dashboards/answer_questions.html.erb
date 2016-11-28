@@ -33,7 +33,7 @@
               <% end %>
               <li class="list-group-item description <%= itemClass %>">
                 <%= form_tag('/dashboard/verify_answer', remote: true) do %>
-                    <%= question.sequence + '.' if !question.sequence.empty? %>
+                    <%= question.sequence.to_s + '.' if !question.sequence.nil? %>
 
                     <% if userQuestion.nil? %>
                         <%= raw printQuestion question %>

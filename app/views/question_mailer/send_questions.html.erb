@@ -1,6 +1,7 @@
 <%= image_tag "logo.png", :alt => 'Athus' %>
 <h1>Homework answers</h1>
 <h2>
+  <p><%= @section.description_detailed %></p>
   <p>
     <b><%= @current_user.name %></b> score:
   </p>
@@ -9,27 +10,28 @@
 <h3>
   <b><%= @rights %></b> right of <%=@total%> questions!
 </h3>
+<% if !@wrongs.nil? %>
+    <h2>Wrong questions:</h2>
+    <% @wrongs.group_by(&:group).sort.each do |number, groups| %>
+        <% groups.group_by(&:number).sort.each do |number, questions| %>
+            <%= raw questions.first.intro %>
+            <h3><%= number %>:</h3>
+            <ul id="<%=number%>" >
+              <% questions.each do |question| %>
+                  <% userQuestion = UsersQuestion.find_by(user_id: @current_user.id, question_id: question.id) %>
 
-<h2>Wrong questions:</h2>
-<% @wrongs.group_by(&:group).sort.each do |number, groups| %>
-    <% groups.group_by(&:number).sort.each do |number, questions| %>
-        <%= raw questions.first.intro %>
-        <h3><%= number %>:</h3>
-        <ul id="<%=number%>" >
-          <% questions.each do |question| %>
-              <% userQuestion = UsersQuestion.find_by(user_id: @current_user.id, question_id: question.id) %>
+                  <li>
+                    <%= question.sequence.to_s + '.' if !question.sequence.nil? %>
 
-              <li>
-                <%= question.sequence + '.' if !question.sequence.empty? %>
+                    <%= userQuestion.description %>
 
-                <%= userQuestion.description %>
+                  </li>
+                  <li>
+                    Right answer: <%= question.description %>
 
-              </li>
-              <li>
-                Right answer: <%= question.description %>
-
-              </li>
-          <% end %>
-        </ul>
+                  </li>
+              <% end %>
+            </ul>
+        <% end %>
     <% end %>
 <% end %>

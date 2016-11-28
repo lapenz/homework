@@ -4,7 +4,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.integer :section_id
       t.string :description
       t.integer :number
-      t.string :sequence
+      t.integer :sequence
       t.text :intro
 
       t.timestamps null: false

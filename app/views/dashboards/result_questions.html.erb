@@ -22,7 +22,7 @@
               <% userQuestion = UsersQuestion.find_by(user_id: @current_user.id, question_id: question.id) %>
 
               <li class="list-group-item list-group-item-danger">
-                <%= question.sequence + '.' if !question.sequence.empty? %>
+                <%= question.sequence.to_s + '.' if !question.sequence.nil? %>
 
                 <%= userQuestion.description %>
 
