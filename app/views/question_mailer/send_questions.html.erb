@@ -10,7 +10,7 @@
 <h3>
   <b><%= @rights %></b> right of <%=@total%> questions!
 </h3>
-<% if !@wrongs.nil? %>
+<% if !@wrongs.blank? %>
     <h2>Wrong questions:</h2>
     <% @wrongs.group_by(&:group).sort.each do |number, groups| %>
         <% groups.group_by(&:number).sort.each do |number, questions| %>
