@@ -1,5 +1,7 @@
 require 'carrierwave/orm/activerecord'
 class Section < ActiveRecord::Base
+  default_scope { order(description: :asc) }
+
   belongs_to :lesson
   has_many :questions
   has_many :users_sections
