@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  check_authorization
   load_and_authorize_resource
 
   # GET /sections

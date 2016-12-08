@@ -30,14 +30,14 @@ class Ability
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
     user ||= User.new # guest user (not logged in)
-    can :manage, :all
+
     if user.admin?
       can :manage, :all
+      cannot :close_section, Dashboard
     end
 
     if user.student?
-      can :read, :all
-      cannot :update, User
+      can :manage, Dashboard
     end
 
   end

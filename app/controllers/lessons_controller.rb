@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  check_authorization
   load_and_authorize_resource
 
   # GET /lessons

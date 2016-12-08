@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_filter :get_section
+  check_authorization
   load_and_authorize_resource
 
   def get_section

@@ -52,5 +52,7 @@
         </ul>
     <% end %>
 <% end %>
-<%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default', data: { confirm: 'Are you sure about this?' } %>
+<% if can? :close_section, Dashboard %>
+    <%= link_to 'Finish', close_section_path(@section), :class => 'btn btn-default', data: { confirm: 'Are you sure about this?' } %>
+<% end %>
 <p/>

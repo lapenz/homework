@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914203208) do
+ActiveRecord::Schema.define(version: 20161208193050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20160914203208) do
   create_table "questions", force: :cascade do |t|
     t.integer  "section_id"
     t.string   "description"
-    t.integer  "number"
-    t.integer   "sequence"
     t.text     "intro"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "group"
+    t.integer  "number"
+    t.integer  "sequence"
   end
 
   add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
@@ -56,23 +56,25 @@ ActiveRecord::Schema.define(version: 20160914203208) do
   add_index "sections", ["lesson_id"], name: "index_sections_on_lesson_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "role"
     t.string   "username"
     t.string   "name"
+    t.boolean  "approved",               default: false, null: false
   end
 
+  add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
