@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1><%=current_user.name%> score:</h1>
+  <h1>Homework Score: <%= current_user.name %></h1>
 </div>
 <ol class="breadcrumb">
   <li><a href="/dashboard" >Home</a> </li>
@@ -8,11 +8,11 @@
   <li class="active"><%=@section.description%></li>
 </ol>
 
-<h3>
+<h2>
   <b><%= @rights %></b> right of <%=@total%> questions!
-</h3>
+</h2>
 
-<h2>Wrong questions:</h2>
+<h2>Wrong sentences:</h2>
 <% @wrongs.group_by(&:group).sort.each do |number, groups| %>
     <% groups.group_by(&:number).sort.each do |number, questions| %>
         <%= raw questions.first.intro %>
@@ -28,7 +28,7 @@
 
               </li>
               <li class="list-group-item list-group-item-success">
-                Right answer: <%= question.description %>
+                Right Answer: <%= question.description %>
 
               </li>
           <% end %>

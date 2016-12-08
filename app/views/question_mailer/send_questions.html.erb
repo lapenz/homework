@@ -1,17 +1,16 @@
 <%= image_tag "logo.png", :alt => 'Athus' %>
-<h1>Homework answers</h1>
 <h2>
-  <p><%= @section.description_detailed %></p>
   <p>
-    <b><%= @current_user.name %></b> score:
+    <b>Homework Score: <%= @current_user.name %></b>
   </p>
+  <p><%= @section.description_detailed %></p>
 </h2>
 
-<h3>
+<h2>
   <b><%= @rights %></b> right of <%=@total%> questions!
-</h3>
+</h2>
 <% if !@wrongs.blank? %>
-    <h2>Wrong questions:</h2>
+    <h2>Wrong sentences:</h2>
     <% @wrongs.group_by(&:group).sort.each do |number, groups| %>
         <% groups.group_by(&:number).sort.each do |number, questions| %>
             <%= raw questions.first.intro %>
@@ -27,7 +26,7 @@
 
                   </li>
                   <li>
-                    Right answer: <%= question.description %>
+                    Right Answer: <%= question.description %>
 
                   </li>
               <% end %>
