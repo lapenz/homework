@@ -1,6 +1,6 @@
 require 'carrierwave/orm/activerecord'
 class Section < ActiveRecord::Base
-  default_scope { order(description: :asc) }
+  default_scope { includes(:lesson).order("lessons.book_id asc, lessons.description asc") }
 
   belongs_to :lesson
   has_many :questions
