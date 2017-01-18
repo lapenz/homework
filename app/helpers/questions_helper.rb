@@ -45,8 +45,8 @@ module QuestionsHelper
 
   def self.verify_answer(question, params)
     rightDescription = String.new(question.description)
-    rightDescription = I18n.transliterate(rightDescription) # Remove accents
-    answerDescription = I18n.transliterate(getAnswerDescription(question, params)) # Remove accents
+    rightDescription = normalize_answer(rightDescription)
+    answerDescription = normalize_answer(getAnswerDescription(question, params))
     (answerDescription.casecmp(rightDescription) == 0) ? true : false # compare ignoring case
   end
 
@@ -59,6 +59,16 @@ module QuestionsHelper
   end
 
   private
+  def normalize_answer(answer)
+    QuestionsHelper.normalize_answer(answer)
+  end
+
+  def self.normalize_answer(answer)
+    answer.gsub!('’', '') # Apostrophe Character U+2019
+    answer.gsub!("'", '') # Apostrophe Character U+0027
+    I18n.transliterate(answer) # Remove accents
+  end
+
   def replaceWithFilledFields(description, disabled)
     disabled = disabled ? 'disabled' : ''
     originalAnswer = getFirstOccurrenceAnswer(description)
