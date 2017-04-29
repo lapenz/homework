@@ -3,9 +3,12 @@ module QuestionsHelper
     if !question.description.blank?
       description = String.new(question.description)
       count = description.count "{"
-
-      for i in 1..count do
-        replaceWithFields(description)
+      if count > 0 # if there're answers on question
+        for i in 1..count do
+          replaceWithFields(description)
+        end
+      else
+        createFieldWithoutAnswer(description)
       end
       description += "<input value=\"#{question.id}\" type=\"hidden\" name=\"question[id]\">"
       description += printSendButton(count)
@@ -86,13 +89,22 @@ module QuestionsHelper
     i = -1
     j = -1
 
-    params[:question][:answers].each { |answer|
-      i = getOpenKeyPosition(description, i+1)
-      j = getCloseKeyPosition(description, j+1)
+    if (description.count("{") > 0) # if there're answers on question
+      params[:question][:answers].each { |answer|
+        i = getOpenKeyPosition(description, i+1)
+        j = getCloseKeyPosition(description, j+1)
 
-      description.sub!(description[i..j], "{" + answer + "}")
-    }
+        description.sub!(description[i..j], "{" + answer + "}")
+      }
+    else
+      description = params[:question][:answers][0]
+    end
 
+
+  end
+
+  def createFieldWithoutAnswer(description)
+    description << "<input autocapitalize=\"none\" value=\"#{description}\" class=\"answer-field\" type=\"hidden\" name=\"question[answers][]\" >"
   end
 
   def getFirstOccurrenceAnswer(description)
@@ -122,11 +134,9 @@ module QuestionsHelper
   end
 
   def printSendButton(answerQty)
-    if answerQty > 0
+
       " <input type=\"submit\" value=\"Send\" class=\"btn btn-success btn-sm\"/>"
-    else
-      ""
-    end
+
   end
 
 end
