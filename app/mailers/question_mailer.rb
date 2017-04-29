@@ -15,7 +15,10 @@ class QuestionMailer < ApplicationMailer
     @current_user = current_user
 
     #byebug
-
-    mail to: email_dest + ", lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson"
+    if Rails.env.production?
+      mail to: email_dest + ", lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson"
+    else
+      mail to: "lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson"
+    end
   end
 end
