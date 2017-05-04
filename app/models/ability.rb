@@ -33,7 +33,6 @@ class Ability
 
     if user.admin?
       can :manage, :all
-      cannot :close_section, Dashboard
     end
 
     if user.student?
