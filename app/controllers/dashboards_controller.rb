@@ -3,7 +3,22 @@ class DashboardsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @books = Book.all
+
+    dados = Produto.joins('INNER JOIN lancamentoaula ON lancamentoaula.livro_id = produto.id')
+        .joins('INNER JOIN alunopresenca on alunopresenca.lancamento_id = lancamentoaula.id')
+        .select(:titulo).distinct
+        .where(:alunopresenca => {aluno_id: current_user.id})
+
+    livros_liberados = Array.new
+    dados.each do |item|
+      livros_liberados << item.titulo
+    end
+
+    if current_user.admin? # if user is admin he can view all books
+      @books = Book.all
+    else
+      @books = Book.where(description: [livros_liberados])
+    end
   end
 
   def lessons
@@ -13,7 +28,7 @@ class DashboardsController < ApplicationController
 
   def sections
     @lesson = Lesson.find(params[:lesson_id])
-    @sections = Section.where(:lesson_id => params[:lesson_id])
+    @sections = Section.where(:lesson_id => params[:lesson_id]).order(:description)
   end
 
   def answer_questions
@@ -37,9 +52,7 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       if @users_section.save
-        # busca o email do professor
-        dados = Professor.joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id, status: [1,2]})
-        QuestionMailer.send_questions(section, current_user, dados[0].email).deliver_now unless dados.nil?
+        QuestionMailer.send_questions(section, current_user).deliver_now
         format.html { redirect_to result_path(@users_section.section_id), notice: 'Questions was successfully delivered.' }
         format.json { render :show, status: :created, location: @users_section }
       else
