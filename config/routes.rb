@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :lessons
   resources :books
 
+  get '/sections/:section_id/destroyUserSection', to: 'sections#destroyUserSection', as: 'destroyUserSection'
+
   get '/dashboard', to: 'dashboards#index'
   get '/dashboard/:book_id/lessons', to: 'dashboards#lessons', as: 'book_lessons'
   get '/dashboard/:lesson_id/sections', to: 'dashboards#sections', as: 'lesson_sections'

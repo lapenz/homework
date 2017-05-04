@@ -1,5 +1,8 @@
 <div class="page-header">
   <h1>Listing Questions of <%= @section.description_detailed %></h1>
+  <% if can? :destroyUserSection, Section %>
+    <%= link_to 'Destroy answers', destroyUserSection_path(@section.id), :class => 'btn btn-danger btn-sm', :role => 'button', data: { confirm: 'Are you sure?' } %>
+  <% end %>
 </div>
 <div class="row" style="height: 35px">
   <div class="col-md-12" data-spy="affix" data-offset-top="150">
@@ -11,7 +14,6 @@
     </audio>
   </div>
 </div>
-
 
 <% @questions.group_by(&:group).sort.each do |number, groups| %>
     <% groups.group_by(&:number).sort.each do |number, questions| %>

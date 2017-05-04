@@ -53,6 +53,14 @@ class SectionsController < ApplicationController
     end
   end
 
+  def destroyUserSection
+    UsersQuestion.joins(:question).where(user_id: current_user.id, :questions => {section_id: params[:section_id]}).delete_all
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Section answers was successfully destroyed for your user.' }
+      format.json { head :no_content }
+    end
+  end
+
   # DELETE /sections/1
   # DELETE /sections/1.json
   def destroy
