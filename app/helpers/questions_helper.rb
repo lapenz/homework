@@ -88,14 +88,15 @@ module QuestionsHelper
   def self.replaceWithAnswer(params, description)
     i = -1
     j = -1
-
     if (description.count("{") > 0) # if there're answers on question
-      params[:question][:answers].each { |answer|
+      params[:question][:answers].each do |answer|
         i = getOpenKeyPosition(description, i+1)
         j = getCloseKeyPosition(description, j+1)
 
-        description.sub!(description[i..j], "{" + answer + "}")
-      }
+        lengthDif = 0
+        lengthDif = description[i..j].length - 2 - answer.length unless answer.length > description[i..j].length # if param its smaller than right answer get the length diff to fill blank
+        description.sub!(description[i..j], "{" + answer + (' ' * lengthDif) + "}")
+      end
     else
       description = params[:question][:answers][0]
     end
