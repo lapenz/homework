@@ -69,6 +69,7 @@ module QuestionsHelper
   def self.normalize_answer(answer)
     answer.gsub!('’', '') # Apostrophe Character U+2019
     answer.gsub!("'", '') # Apostrophe Character U+0027
+    answer.strip!
     I18n.transliterate(answer) # Remove accents
   end
 
