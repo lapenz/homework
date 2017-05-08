@@ -21,7 +21,7 @@ class QuestionMailer < ApplicationMailer
       else
         # busca o email do professor
         dados = Professor.joins('inner join turma on turma.professor_id = professor.id').joins('inner join matricula on turma.id = matricula.turma_id').where(:matricula => {aluno_id: current_user.id, status: [1,2]})
-        mail to:  dados[0].email + ", lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson"
+        mail to:  dados[0].email, subject: "#{current_user.name} lesson"
       end
     else
       mail to: "lucasarthurpenz@gmail.com", subject: "#{current_user.name} lesson test"
