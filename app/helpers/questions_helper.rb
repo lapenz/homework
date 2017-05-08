@@ -94,6 +94,7 @@ module QuestionsHelper
         j = getCloseKeyPosition(description, j+1)
 
         lengthDif = 0
+        answer.strip! # Remove whitespace
         lengthDif = description[i..j].length - 2 - answer.length unless answer.length > description[i..j].length # if param its smaller than right answer get the length diff to fill blank
         description.sub!(description[i..j], "{" + answer + (' ' * lengthDif) + "}")
       end
