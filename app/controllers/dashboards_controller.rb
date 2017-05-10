@@ -43,7 +43,7 @@ class DashboardsController < ApplicationController
     @users_section = UsersSection.new(section_id: params[:section_id], user_id: current_user.id)
     section = Section.find(params[:section_id])
     total = section.questions.size
-    total_user = UsersQuestion.joins(:question).where(:user_id => current_user.id, :questions => { :section_id => params[:section_id] }).count
+    total_user = UsersQuestion.joins(:question).where(:user_id => current_user.id, :questions => { :section_id => params[:section_id] }).distinct(:question_id).count
 
     if total != total_user
       redirect_to answer_questions_path(params[:section_id]), alert: 'You must do all questions before finish the lesson.'
