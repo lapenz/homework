@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
       aluno = Aluno.find(idAluno)
       email = aluno.email
       email = params[:user][:username] + "@athus.com.br" if email.empty?
-      user = User.create(id: aluno.id, name: aluno.nome, email: email, username: params[:user][:username], password: aluno.codigo, password_confirmation: aluno.codigo, role: 'student', approved: true) if !aluno.nil?
+      User.where(id: aluno.id).update_or_create(id: aluno.id, name: aluno.nome, email: email, username: params[:user][:username], password: aluno.codigo, password_confirmation: aluno.codigo, role: 'student', approved: true) if !aluno.nil?
     end
     #byebug
     super
