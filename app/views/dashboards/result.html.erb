@@ -3,5 +3,5 @@
 
 </div>
 
-<h2>Right questions percent: <%=@rightPercent%>%</h2>
-<h2>Wrong questions percent: <%=@wrongPercent%>%</h2>
+<h2>Right questions percent: <%=number_to_percentage(@rightPercent, precision: 0) %></h2>
+<h2>Wrong questions percent: <%=number_to_percentage(@wrongPercent, precision: 0) %></h2>
