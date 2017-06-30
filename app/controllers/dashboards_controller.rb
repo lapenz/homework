@@ -67,12 +67,7 @@ class DashboardsController < ApplicationController
 
     right = QuestionsHelper.verify_answer(question, params)
 
-    userQuestion = UsersQuestion.find_by(:user_id => current_user.id, :question => question.id) || UsersQuestion.new
-    userQuestion.question_id = question.id
-    userQuestion.user_id = current_user.id
-    userQuestion.right = right
-    userQuestion.description = QuestionsHelper.getAnswerDescription(question, params)
-    userQuestion.save
+    UsersQuestion.where(:user_id => current_user.id, :question => question.id).update_or_create(question_id: question.id, user_id: current_user.id, right: right, description: QuestionsHelper.getAnswerDescription(question, params))
 
     respond_to do |format|
       format.json { render :json => right.to_json }
