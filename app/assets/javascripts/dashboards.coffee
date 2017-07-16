@@ -9,6 +9,7 @@ $(document).ready ->
       if(xhr.responseText == "true")
         $(element).parent().removeClass("wrongAnswerAnimation")
         $(element).parent().addClass("correctAnswerAnimation")
+        $(element).parent().next().find("input[type=text]").focus()
       else
         $(element).parent().removeClass("correctAnswerAnimation")
         $(element).parent().addClass("wrongAnswerAnimation")
