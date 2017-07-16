@@ -17,11 +17,37 @@ $(document).ready ->
       alert('Houve um problema ao responder, tente novamente.')
   return
 
-$(document).keydown (event) ->
-  if event.ctrlKey
-    player = document.getElementById("player");
-    if (player.paused == false)
-      player.pause();
-    else
-      player.play();
-return
+$(document).ready ->
+  $(document).keydown (event) ->
+    if event.ctrlKey
+      player = document.getElementById("player");
+      if (player.paused == false)
+        player.pause();
+      else
+        player.play();
+  return
+
+$(document).ready ->
+  $('#backward').on 'click', ->
+    if window.HTMLAudioElement
+      try
+        player = document.getElementById('player')
+        player.currentTime -= 15.0
+      catch e
+        # Fail silently but show in F12 developer tools console
+        if window.console and console.error('Error:' + e)
+          return
+  return
+
+$(document).ready ->
+  $('#forward').on 'click', ->
+    if window.HTMLAudioElement
+      try
+        player = document.getElementById('player')
+        player.currentTime += 15.0
+      catch e
+        # Fail silently but show in F12 developer tools console
+        if window.console and console.error('Error:' + e)
+          return
+  return
+

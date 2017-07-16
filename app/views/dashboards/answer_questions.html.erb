@@ -6,12 +6,29 @@
 </div>
 <div class="row" style="height: 35px">
   <div class="col-md-12" data-spy="affix" data-offset-top="150">
-    <audio id="player" controls controlsList="nodownload">
-      <source src="<%= @section.audio %>" type="audio/mp4">
-      <source src="<%= @section.second_audio %>" type="audio/ogg">
-      <p>Your browser does not support HTML5 audio, but you can still
-        <a href="<%= @section.audio %>">download the file</a>.</p>
-    </audio>
+    <div class="row">
+
+      <div class="col-md-4">
+        <audio id="player" controls controlsList="nodownload">
+          <source src="<%= @section.audio %>" type="audio/mp4">
+          <source src="<%= @section.second_audio %>" type="audio/ogg">
+          <p>Your browser does not support HTML5 audio, but you can still
+            <a href="<%= @section.audio %>">download the file</a>.</p>
+        </audio>
+      </div>
+      <div class="col-md-8">
+        <button id="backward" type="button" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+        </button>
+        <button id="forward" type="button" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </div>
+
+
+
   </div>
 </div>
 
