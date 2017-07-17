@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
       livros_liberados << item.titulo
     end
 
-    if current_user.admin? # if user is admin he can view all books
+    if current_user.admin? || current_user.demo? # if user is admin he can view all books
       @books = Book.all
     else
       @books = Book.where(description: [livros_liberados])

@@ -35,6 +35,11 @@ class Ability
       can :manage, :all
     end
 
+    if user.demo?
+      can :read, :all
+      can :manage, Dashboard
+    end
+
     if user.student?
       can :manage, Dashboard
     end

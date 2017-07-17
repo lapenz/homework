@@ -14,9 +14,15 @@
         <td><%= book.description %></td>
         <td>
           <div class="btn-group" role="group">
-            <%= link_to 'Edit', edit_book_path(book), :class => 'btn btn-default btn-sm', :role => 'button' %>
-            <%= link_to 'Show', book, :class => 'btn btn-default btn-sm', :role => 'button' %>
-            <%= link_to 'Destroy', book, :class => 'btn btn-danger btn-sm', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% if can? :edit, Book %>
+                <%= link_to 'Edit', edit_book_path(book), :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <% end %>
+            <% if can? :show, Book %>
+                <%= link_to 'Show', book, :class => 'btn btn-default btn-sm', :role => 'button' %>
+            <% end %>
+            <% if can? :destroy, Book %>
+                <%= link_to 'Destroy', book, :class => 'btn btn-danger btn-sm', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </div>
 
         </td>

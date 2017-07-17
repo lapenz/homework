@@ -28,5 +28,7 @@
   <%= @question.description %>
 </p>
 
-<%= link_to 'Edit', edit_section_question_path(@section, @question) %> |
+<% if can? :edit, Question %>
+    <%= link_to 'Edit', edit_section_question_path(@section, @question) %> |
+<% end %>
 <%= link_to 'Back', section_questions_path %>

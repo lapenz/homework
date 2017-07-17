@@ -23,8 +23,13 @@ class User < ActiveRecord::Base
   def admin?
     self.role == "admin"
   end
+
   def student?
     self.role == "student"
+  end
+
+  def demo?
+    self.role == "demo"
   end
 
   def active_for_authentication?

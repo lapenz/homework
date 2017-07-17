@@ -18,5 +18,7 @@
   </audio>
 </p>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
+<% if can? :edit, Section %>
+    <%= link_to 'Edit', edit_section_path(@section) %> |
+<% end %>
 <%= link_to 'Back', sections_path %>

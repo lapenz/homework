@@ -16,7 +16,7 @@ class QuestionMailer < ApplicationMailer
 
     #byebug
     if Rails.env.production?
-      if current_user.admin?
+      if current_user.admin? || current_user.demo?
         mail to:  current_user.email, subject: "#{current_user.name} lesson test"
       else
         # busca o email do professor

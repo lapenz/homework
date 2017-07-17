@@ -8,5 +8,7 @@
   <%= @lesson.description %>
 </p>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+<% if can? :edit, Lesson %>
+    <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+<% end %>
 <%= link_to 'Back', lessons_path %>

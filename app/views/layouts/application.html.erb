@@ -32,7 +32,7 @@
         <% if current_user %>
             <li><%= nav_link("Athus Books", dashboard_path) %></li>
 
-            <% if current_user.admin? %>
+            <% if current_user.admin? || current_user.demo? %>
                 <li><%= nav_link("Books", books_path) %></li>
                 <li><%= nav_link("Lessons", lessons_path) %></li>
                 <li><%= nav_link("Sections", sections_path) %></li>

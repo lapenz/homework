@@ -24,9 +24,15 @@
         <td><%= question.description %></td>
         <td>
           <div class="btn-group btn-group-sm" role="group">
-            <%= link_to 'Edit', edit_section_question_path(@section, question), :class => 'btn btn-default', :role => 'button' %>
-            <%= link_to 'Show', [@section, question], :class => 'btn btn-default', :role => 'button' %>
-            <%= link_to 'Destroy', [@section, question], :class => 'btn btn-danger', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% if can? :edit, Question %>
+                <%= link_to 'Edit', edit_section_question_path(@section, question), :class => 'btn btn-default', :role => 'button' %>
+            <% end %>
+            <% if can? :show, Question %>
+                <%= link_to 'Show', [@section, question], :class => 'btn btn-default', :role => 'button' %>
+            <% end %>
+            <% if can? :destroy, Question %>
+                <%= link_to 'Destroy', [@section, question], :class => 'btn btn-danger', :role => 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </div>
         </td>
       </tr>
