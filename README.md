@@ -1,4 +1,5 @@
 Homework Listen and Comprehension
 
-Demo user: <strong>demo</strong> </br>
+Demo user: demo
+
 Demo password: demouser
